@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://summar-ai-textsummarizer.netlify.app/sitemap.xml
