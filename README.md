@@ -20,6 +20,8 @@ Netlify serverless backend.
 - Netlify Functions (serverless backend)
 
 ## 📁 Project Structure
+
+```
 SummarAI-Text-Summarizer/
 ├── netlify/
 │   └── functions/
@@ -31,6 +33,7 @@ SummarAI-Text-Summarizer/
 ├── README.md
 ├── robots.txt
 └── sitemap.xml
+```
 
 ## ⚙️ Self-Hosting
 1. Clone this repo
