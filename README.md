@@ -1,32 +1,45 @@
-# SummarAI — AI Text Summarizer
+# SummarAI — Free AI Text Summarizer
 
-An AI-powered text summarizer web app built with vanilla HTML, CSS, and JavaScript using the **Groq API** (LLaMA 3.3 70B model).
+A production-ready AI-powered text summarizer that generates instant summaries
+in 4 modes using the Groq API (LLaMA 3.3 70B), powered by a secure
+Netlify serverless backend.
 
 ## 🚀 Live Demo
-[View Live App](https://summar-ai-textsummarizer.netlify.app/)
+[summar-ai-textsummarizer.netlify.app](https://summar-ai-textsummarizer.netlify.app)
 
 ## ✨ Features
-- 4 Summary Modes: Concise, Bullet Points, Detailed, ELI5
-- Powered by LLaMA 3.3 70B via Groq API
-- Word count & compression stats
-- Copy to clipboard
-- API key saved locally in browser
-- Fully responsive design
+- 4 Summary Modes — Concise, Bullet Points, Detailed, ELI5
+- Secure serverless backend — no setup or login needed for users
+- Word count, compression ratio, copy & download output
+- Full SEO — Schema.org, Open Graph, FAQ section, sitemap, robots.txt
+- Fully responsive — mobile, tablet, desktop
 
 ## 🛠️ Tech Stack
 - HTML5, CSS3, JavaScript (Vanilla)
-- Groq API (Free tier)
-- LLaMA 3.3 70B model
+- Groq API — LLaMA 3.3 70B model
+- Netlify Functions (serverless backend)
 
-## ⚙️ How to Use
-1. Clone or download this repo
-2. Get a free API key from [console.groq.com](https://console.groq.com)
-3. Open `index.html` in your browser
-4. Enter your Groq API key and click Save
-5. Paste any text and click Summarize!
+## 📁 Project Structure
+SummarAI-Text-Summarizer/
+├── netlify/
+│   └── functions/
+│       └── summarize.js
+├── 4a39cbee-e346-464d-8977-ed4c72817629.png
+├── google11dafe864c51228d.html
+├── index.html
+├── netlify.toml
+├── README.md
+├── robots.txt
+└── sitemap.xml
+
+## ⚙️ Self-Hosting
+1. Clone this repo
+2. Go to Netlify → Site Configuration → Environment Variables
+3. Add: `GROQ_API_KEY` = your key from console.groq.com
+4. Deploy — done!
 
 ## 📸 Screenshot
-<img width="667" height="949" alt="text summarizer" src="https://github.com/user-attachments/assets/895e114b-1528-4449-b6a4-0c36591eec44" />
+<img width="464" height="617" alt="image" src="https://github.com/user-attachments/assets/ad219a28-255f-47ec-9ef5-fb871adcac4a" />
 
 
 ## 👨‍💻 Author
@@ -34,4 +47,4 @@ An AI-powered text summarizer web app built with vanilla HTML, CSS, and JavaScri
 [LinkedIn](https://www.linkedin.com/in/vibin-iyyappan-732017374) • [GitHub](https://github.com/vibin12363)
 
 ## 📄 License
-MIT License
+MIT License — © 2025 Vibin Iyyappan
