@@ -65,6 +65,16 @@
   }
   </script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8B7G49FF7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K8B7G49FF7');
+    </script>
+
     <!-- ═══ PERFORMANCE ═══ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1023,7 +1033,7 @@
         <footer>
             <p>Built by Vibin Iyyappan ·
                 Powered by Groq API (LLaMA 3.3) </p>
-            <p style="margin-top:8px;">© 2025 SummarAI · Free AI Text Summarizer · No Login Required</p>
+            <p style="margin-top:8px;">© 2026 SummarAI · Free AI Text Summarizer · No Login Required</p>
         </footer>
     </div>
 
@@ -1041,10 +1051,19 @@
         }
 
         function selectMode(btn) {
-            document.querySelectorAll('.mode-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+            document.querySelectorAll('.mode-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
             btn.classList.add('active');
             btn.setAttribute('aria-pressed', 'true');
             selectedMode = btn.dataset.mode;
+
+            // Track mode selection
+            gtag('event', 'mode_selected', {
+                'event_category': 'Summary Mode',
+                'event_label': selectedMode
+            });
         }
 
         async function summarize() {
@@ -1055,6 +1074,16 @@
             if (!text) { errorEl.textContent = '⚠ Please paste some text to summarize.'; errorEl.style.display = 'block'; return; }
             if (text.length < 50) { errorEl.textContent = '⚠ Text is too short. Please paste a longer piece of text.'; errorEl.style.display = 'block'; return; }
             if (text.length > 15000) { errorEl.textContent = '⚠ Text is too long (max 15,000 characters). Please shorten it.'; errorEl.style.display = 'block'; return; }
+
+            // ✅ Track summarize click with mode + text length range
+            gtag('event', 'summarize_clicked', {
+                'event_category': 'Engagement',
+                'event_label': selectedMode,
+                'text_length_range':
+                    text.length < 500 ? 'short (< 500 chars)' :
+                        text.length < 2000 ? 'medium (500-2000)' :
+                            'long (2000+)'
+            });
 
             const btn = document.getElementById('summarizeBtn');
             const btnText = document.getElementById('btnText');
@@ -1099,12 +1128,27 @@
         <span class="stat">Reduced by: <strong>${ratio}%</strong></span>
         <span class="stat">Time: <strong>${elapsed}s</strong></span>`;
 
+                // ✅ Track successful summary
+                gtag('event', 'summarize_success', {
+                    'event_category': 'Engagement',
+                    'event_label': selectedMode,
+                    'time_taken': elapsed,
+                    'reduction_percent': ratio
+                });
+
             } catch (err) {
                 outputBody.classList.remove('streaming');
                 outputCard.classList.remove('visible');
                 outputCard.style.display = 'none';
                 errorEl.textContent = '✗ Error: ' + err.message;
                 errorEl.style.display = 'block';
+
+                // ✅ Track errors
+                gtag('event', 'summarize_error', {
+                    'event_category': 'Error',
+                    'event_label': err.message
+                });
+
             } finally {
                 btn.disabled = false;
                 btnText.style.display = 'block';
@@ -1118,6 +1162,12 @@
                 const btn = document.querySelector('.copy-btn');
                 btn.textContent = '✓ Copied!'; btn.style.color = 'var(--accent)';
                 setTimeout(() => { btn.textContent = '📋 Copy'; btn.style.color = ''; }, 2000);
+
+                // ✅ Track copy click
+                gtag('event', 'copy_clicked', {
+                    'event_category': 'Engagement',
+                    'event_label': selectedMode
+                });
             });
         }
 
@@ -1128,11 +1178,23 @@
             a.href = URL.createObjectURL(blob);
             a.download = `summary-${selectedMode}-${Date.now()}.txt`;
             a.click();
+
+            // ✅ Track download click
+            gtag('event', 'download_clicked', {
+                'event_category': 'Engagement',
+                'event_label': selectedMode
+            });
         }
 
         function toggleFaq(btn) {
             const item = btn.parentElement;
             item.classList.toggle('open');
+
+            // ✅ Track FAQ interaction
+            gtag('event', 'faq_toggled', {
+                'event_category': 'Engagement',
+                'event_label': btn.textContent.trim().substring(0, 50)
+            });
         }
     </script>
 </body>
