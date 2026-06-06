@@ -35,12 +35,6 @@ SummarAI-Text-Summarizer/
 └── sitemap.xml
 ```
 
-## ⚙️ Self-Hosting
-1. Clone this repo
-2. Go to Netlify → Site Configuration → Environment Variables
-3. Add: `GROQ_API_KEY` = your key from console.groq.com
-4. Deploy — done!
-
 ## 📸 Screenshot
 <img width="464" height="617" alt="image" src="https://github.com/user-attachments/assets/ad219a28-255f-47ec-9ef5-fb871adcac4a" />
 
