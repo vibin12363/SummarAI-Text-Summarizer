@@ -37,7 +37,7 @@
 
     <meta name="google-adsense-account" content="ca-pub-7897457126093997">
 
-    
+
     <!-- ═══ SCHEMA.ORG STRUCTURED DATA ═══ -->
     <script type="application/ld+json">
   {
@@ -725,8 +725,8 @@
         /* ═══ ABOUT & PRIVACY SECTIONS ═══ */
         .about-section {
             margin-top: 48px;
-            padding: 40px 0;
             border-top: 1px solid var(--border);
+            padding-top: 40px;
         }
 
         .about-section h2 {
@@ -835,9 +835,8 @@
 
         /* PRIVACY POLICY */
         .privacy-section {
-            margin-top: 48px;
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
+            margin-top: 0;
+            padding-top: 0;
         }
 
         .privacy-section h2 {
@@ -1215,16 +1214,23 @@
 
         <!-- ABOUT ME SECTION -->
         <section class="about-section" aria-label="About the developer">
-            <h2>About the Developer</h2>
-            <div class="about-card">
-                <div class="about-avatar">👨‍💻</div>
-                <div class="about-info">
-                    <div class="about-name">Vibin Iyyappan</div>
-                    <div class="about-links">
-                        <a href="https://www.linkedin.com/in/vibin-iyyappan-732017374" target="_blank" rel="noopener"
-                            class="about-link">💼 LinkedIn</a>
-                        <a href="https://vibin-portfolio-website.netlify.app" target="_blank" rel="noopener"
-                            class="about-link">🌐 Portfolio</a>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    About the Developer
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-a">
+                    <div class="about-card">
+                        <div class="about-avatar">👨‍💻</div>
+                        <div class="about-info">
+                            <div class="about-name">Vibin Iyyappan</div>
+                            <div class="about-links">
+                                <a href="https://www.linkedin.com/in/vibin-iyyappan-732017374" target="_blank"
+                                    rel="noopener" class="about-link">💼 LinkedIn</a>
+                                <a href="https://vibin-portfolio-website.netlify.app" target="_blank" rel="noopener"
+                                    class="about-link">🌐 Portfolio</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1232,51 +1238,52 @@
 
         <!-- PRIVACY POLICY SECTION -->
         <section class="privacy-section" aria-label="Privacy Policy">
-            <h2>Privacy Policy</h2>
-            <div class="privacy-updated">Last updated: June 2026</div>
-            <div class="privacy-card">
-                <div class="privacy-block">
-                    <h3>📄 What We Collect</h3>
-                    <p>SummarAI does not collect, store, or log any personal information.
-                        We do not require account creation, login, or any personal details
-                        to use this service.</p>
-                </div>
-                <div class="privacy-block">
-                    <h3>🔒 Your Text Content</h3>
-                    <p>The text you paste for summarization is sent securely to our
-                        serverless backend for processing only. It is never stored, logged,
-                        shared, or used for training. Once your summary is generated,
-                        the text is discarded immediately.</p>
-                </div>
-                <div class="privacy-block">
-                    <h3>📊 Analytics</h3>
-                    <p>We use Google Analytics to understand how users interact with
-                        SummarAI — such as which summary modes are used, how many
-                        visitors we receive, and what devices they use. No personally
-                        identifiable information is tracked. Only anonymous usage
-                        patterns are collected.</p>
-                </div>
-                <div class="privacy-block">
-                    <h3>🍪 Cookies</h3>
-                    <p>SummarAI does not use any cookies directly. Google Analytics
-                        may use anonymized cookies for traffic analysis purposes only.</p>
-                </div>
-                <div class="privacy-block">
-                    <h3>🔗 Third-Party Services</h3>
-                    <p>SummarAI uses the Groq API (LLaMA 3.3) for AI processing via
-                        a secure serverless backend. Your text is processed under
-                        Groq's privacy policy. We do not share your data with any
-                        other third parties.</p>
-                </div>
-                <div class="privacy-block">
-                    <h3>📬 Contact</h3>
-                    <p>If you have any questions about this privacy policy, feel free
-                        to reach out via
-                        <a href="https://www.linkedin.com/in/vibin-iyyappan-732017374" target="_blank" rel="noopener"
-                            style="color:var(--accent);text-decoration:none;">
-                            LinkedIn
-                        </a>
-                    </p>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Privacy Policy
+                    <span class="faq-arrow">▼</span>
+                </button>
+                <div class="faq-a">
+                    <div class="privacy-updated">Last updated: June 2026</div>
+                    <div class="privacy-card">
+                        <div class="privacy-block">
+                            <h3>📄 What We Collect</h3>
+                            <p>SummarAI does not collect, store, or log any personal
+                                information. No account creation or login required.</p>
+                        </div>
+                        <div class="privacy-block">
+                            <h3>🔒 Your Text Content</h3>
+                            <p>Text you paste is sent securely for processing only —
+                                never stored, logged, or shared. Discarded immediately
+                                after your summary is generated.</p>
+                        </div>
+                        <div class="privacy-block">
+                            <h3>📊 Analytics</h3>
+                            <p>We use Google Analytics to understand anonymous usage
+                                patterns only. No personally identifiable information
+                                is tracked.</p>
+                        </div>
+                        <div class="privacy-block">
+                            <h3>🍪 Cookies</h3>
+                            <p>SummarAI does not use cookies directly. Google Analytics
+                                may use anonymized cookies for traffic analysis only.</p>
+                        </div>
+                        <div class="privacy-block">
+                            <h3>🔗 Third-Party Services</h3>
+                            <p>We use Groq API (LLaMA 3.3) via a secure serverless
+                                backend. Your data is not shared with any other
+                                third parties.</p>
+                        </div>
+                        <div class="privacy-block">
+                            <h3>📬 Contact</h3>
+                            <p>Questions? Reach out via
+                                <a href="https://www.linkedin.com/in/vibin-iyyappan-732017374" target="_blank"
+                                    rel="noopener" style="color:var(--accent);text-decoration:none;">
+                                    LinkedIn
+                                </a>.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
