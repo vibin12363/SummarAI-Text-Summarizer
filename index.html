@@ -717,6 +717,185 @@
             text-decoration: underline;
         }
 
+        /* ═══ ABOUT & PRIVACY SECTIONS ═══ */
+        .about-section {
+            margin-top: 48px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-section h2 {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .about-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .about-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .about-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .about-name {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .about-title {
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .about-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .about-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .about-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.72rem;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .about-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .about-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-tag {
+            background: rgba(79, 255, 176, 0.06);
+            border: 1px solid rgba(79, 255, 176, 0.15);
+            color: var(--accent);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        /* PRIVACY POLICY */
+        .privacy-section {
+            margin-top: 48px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .privacy-section h2 {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .privacy-updated {
+            font-size: 0.68rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .privacy-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .privacy-block h3 {
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .privacy-block p {
+            font-size: 0.83rem;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        /* RESPONSIVE for new sections */
+        @media(max-width: 480px) {
+            .about-card {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .about-avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 1.4rem;
+            }
+
+            .about-name {
+                font-size: 1rem;
+            }
+
+            .privacy-card {
+                padding: 18px;
+            }
+        }
+
         /* ═══ RESPONSIVE ═══ */
         @media(max-width: 768px) {
             .wrapper {
@@ -1029,6 +1208,73 @@
             </div>
         </section>
 
+        <!-- ABOUT ME SECTION -->
+        <section class="about-section" aria-label="About the developer">
+            <h2>About the Developer</h2>
+            <div class="about-card">
+                <div class="about-avatar">👨‍💻</div>
+                <div class="about-info">
+                    <div class="about-name">Vibin Iyyappan</div>
+                    <div class="about-links">
+                        <a href="https://www.linkedin.com/in/vibin-iyyappan-732017374" target="_blank" rel="noopener"
+                            class="about-link">💼 LinkedIn</a>
+                        <a href="https://vibin-portfolio-website.netlify.app" target="_blank" rel="noopener"
+                            class="about-link">🌐 Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRIVACY POLICY SECTION -->
+        <section class="privacy-section" aria-label="Privacy Policy">
+            <h2>Privacy Policy</h2>
+            <div class="privacy-updated">Last updated: June 2026</div>
+            <div class="privacy-card">
+                <div class="privacy-block">
+                    <h3>📄 What We Collect</h3>
+                    <p>SummarAI does not collect, store, or log any personal information.
+                        We do not require account creation, login, or any personal details
+                        to use this service.</p>
+                </div>
+                <div class="privacy-block">
+                    <h3>🔒 Your Text Content</h3>
+                    <p>The text you paste for summarization is sent securely to our
+                        serverless backend for processing only. It is never stored, logged,
+                        shared, or used for training. Once your summary is generated,
+                        the text is discarded immediately.</p>
+                </div>
+                <div class="privacy-block">
+                    <h3>📊 Analytics</h3>
+                    <p>We use Google Analytics to understand how users interact with
+                        SummarAI — such as which summary modes are used, how many
+                        visitors we receive, and what devices they use. No personally
+                        identifiable information is tracked. Only anonymous usage
+                        patterns are collected.</p>
+                </div>
+                <div class="privacy-block">
+                    <h3>🍪 Cookies</h3>
+                    <p>SummarAI does not use any cookies directly. Google Analytics
+                        may use anonymized cookies for traffic analysis purposes only.</p>
+                </div>
+                <div class="privacy-block">
+                    <h3>🔗 Third-Party Services</h3>
+                    <p>SummarAI uses the Groq API (LLaMA 3.3) for AI processing via
+                        a secure serverless backend. Your text is processed under
+                        Groq's privacy policy. We do not share your data with any
+                        other third parties.</p>
+                </div>
+                <div class="privacy-block">
+                    <h3>📬 Contact</h3>
+                    <p>If you have any questions about this privacy policy, feel free
+                        to reach out via
+                        <a href="https://www.linkedin.com/in/vibin-iyyappan-732017374" target="_blank" rel="noopener"
+                            style="color:var(--accent);text-decoration:none;">
+                            LinkedIn
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
         <!-- FOOTER -->
         <footer>
             <p>Built by Vibin Iyyappan ·
