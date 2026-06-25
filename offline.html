@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SummarAI — You're Offline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --bg: #0b0e14;
+            --surface: #13171f;
+            --surface2: #1c2130;
+            --border: #252c3d;
+            --accent: #4fffb0;
+            --accent2: #00c9ff;
+            --text: #e8ecf4;
+            --muted: #6b7799;
+            --danger: #ff6b6b;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Mono', monospace;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* GRID BG */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(79, 255, 176, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 255, 176, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* GLOWS */
+        .glow1 {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 255, 176, 0.07) 0%, transparent 70%);
+            top: -200px;
+            left: -200px;
+            pointer-events: none;
+            z-index: 0;
+            animation: orb 12s ease-in-out infinite alternate;
+        }
+
+        .glow2 {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 201, 255, 0.06) 0%, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            pointer-events: none;
+            z-index: 0;
+            animation: orb 15s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes orb {
+            from {
+                transform: translate(0, 0)
+            }
+
+            to {
+                transform: translate(60px, 40px)
+            }
+        }
+
+        /* FLOATING PARTICLES */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0;
+            animation: particle-float linear infinite;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0
+            }
+
+            10% {
+                opacity: 0.6
+            }
+
+            90% {
+                opacity: 0.2
+            }
+
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0
+            }
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 48px 28px;
+            max-width: 520px;
+            width: 100%;
+        }
+
+        /* LOGO */
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 40px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        /* 3D SCENE */
+        .scene {
+            perspective: 800px;
+            margin-bottom: 36px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scene-inner {
+            transform-style: preserve-3d;
+            animation: scene-rotate 8s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        @keyframes scene-rotate {
+            0% {
+                transform: rotateY(-15deg) rotateX(5deg)
+            }
+
+            100% {
+                transform: rotateY(15deg) rotateX(-5deg)
+            }
+        }
+
+        /* WIFI TOWER SVG */
+        .wifi-tower {
+            width: 120px;
+            height: 130px;
+            filter: drop-shadow(0 0 20px rgba(79, 255, 176, 0.3));
+            animation: tower-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes tower-pulse {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 15px rgba(79, 255, 176, 0.2))
+            }
+
+            50% {
+                filter: drop-shadow(0 0 30px rgba(79, 255, 176, 0.5))
+            }
+        }
+
+        /* SIGNAL WAVES */
+        .signal-wave {
+            position: absolute;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: wave-expand 2.5s ease-out infinite;
+        }
+
+        .signal-wave:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 0s;
+        }
+
+        .signal-wave:nth-child(2) {
+            width: 90px;
+            height: 90px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 0.5s;
+        }
+
+        .signal-wave:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 1s;
+        }
+
+        @keyframes wave-expand {
+            0% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(0.5)
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5)
+            }
+        }
+
+        .no-signal .signal-wave {
+            border-color: var(--danger);
+            animation-play-state: paused;
+            opacity: 0.15;
+        }
+
+        /* TEXT */
+        .title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--text), var(--muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.75;
+            margin-bottom: 28px;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* STATUS BADGE */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--danger);
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.2
+            }
+        }
+
+        /* RETRY BUTTON */
+        .retry-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .retry-btn {
+            position: relative;
+            width: 280px;
+            height: 52px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            overflow: hidden;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .retry-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .retry-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* BUTTON PROGRESS BAR */
+        .btn-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(135deg, rgba(79, 255, 176, 0.15), rgba(0, 201, 255, 0.1));
+            border-radius: 12px;
+            transition: none;
+        }
+
+        .btn-progress.success {
+            background: linear-gradient(135deg, rgba(79, 255, 176, 0.3), rgba(0, 201, 255, 0.2));
+        }
+
+        .btn-progress.fail {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        /* BUTTON TEXT */
+        .btn-label {
+            position: relative;
+            z-index: 2;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0.5px;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        /* CARTOON CHARACTER */
+        .character {
+            position: absolute;
+            top: 50%;
+            left: -36px;
+            transform: translateY(-50%);
+            z-index: 3;
+            width: 34px;
+            height: 34px;
+            pointer-events: none;
+            transition: none;
+        }
+
+        .character svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* CHARACTER RUNNING LEGS */
+        .leg-l,
+        .leg-r {
+            transform-origin: center top;
+            animation: none;
+        }
+
+        .running .leg-l {
+            animation: leg-left 0.3s linear infinite alternate;
+        }
+
+        .running .leg-r {
+            animation: leg-right 0.3s linear infinite alternate;
+        }
+
+        @keyframes leg-left {
+            from {
+                transform: rotate(-25deg)
+            }
+
+            to {
+                transform: rotate(25deg)
+            }
+        }
+
+        @keyframes leg-right {
+            from {
+                transform: rotate(25deg)
+            }
+
+            to {
+                transform: rotate(-25deg)
+            }
+        }
+
+        /* CHARACTER ARM */
+        .arm-l,
+        .arm-r {
+            transform-origin: center top;
+        }
+
+        .running .arm-l {
+            animation: arm-left 0.3s linear infinite alternate;
+        }
+
+        .running .arm-r {
+            animation: arm-right 0.3s linear infinite alternate;
+        }
+
+        @keyframes arm-left {
+            from {
+                transform: rotate(25deg)
+            }
+
+            to {
+                transform: rotate(-25deg)
+            }
+        }
+
+        @keyframes arm-right {
+            from {
+                transform: rotate(-25deg)
+            }
+
+            to {
+                transform: rotate(25deg)
+            }
+        }
+
+        /* SUCCESS / FAIL STATES */
+        .btn-label.checking {
+            opacity: 0.4;
+        }
+
+        .success-text {
+            color: var(--accent);
+        }
+
+        .fail-text {
+            color: var(--danger);
+        }
+
+        /* TIP CARD */
+        .tip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 0.75rem;
+            color: var(--muted);
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .tip strong {
+            color: var(--accent);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .title {
+                font-size: 1.4rem;
+            }
+
+            .desc {
+                font-size: 0.8rem;
+            }
+
+            .scene {
+                height: 130px;
+            }
+
+            .wifi-tower {
+                width: 100px;
+                height: 110px;
+            }
+
+            .retry-btn {
+                width: 260px;
+            }
+
+            .signal-wave:nth-child(1) {
+                width: 50px;
+                height: 50px;
+            }
+
+            .signal-wave:nth-child(2) {
+                width: 75px;
+                height: 75px;
+            }
+
+            .signal-wave:nth-child(3) {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media(max-width:480px) {
+            .container {
+                padding: 28px 14px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+                margin-bottom: 28px;
+            }
+
+            .title {
+                font-size: 1.2rem;
+            }
+
+            .desc {
+                font-size: 0.78rem;
+                margin-bottom: 20px;
+            }
+
+            .scene {
+                height: 110px;
+                margin-bottom: 24px;
+            }
+
+            .wifi-tower {
+                width: 82px;
+                height: 90px;
+            }
+
+            .retry-btn {
+                width: 220px;
+                height: 48px;
+            }
+
+            .status-badge {
+                font-size: 0.62rem;
+                padding: 7px 14px;
+            }
+
+            .tip {
+                font-size: 0.72rem;
+                padding: 13px 16px;
+            }
+
+            .signal-wave:nth-child(1) {
+                width: 42px;
+                height: 42px;
+            }
+
+            .signal-wave:nth-child(2) {
+                width: 64px;
+                height: 64px;
+            }
+
+            .signal-wave:nth-child(3) {
+                width: 88px;
+                height: 88px;
+            }
+
+            .character {
+                width: 28px;
+                height: 28px;
+            }
+
+            .btn-label {
+                font-size: 0.82rem;
+            }
+        }
+
+        @media(max-width:360px) {
+            .retry-btn {
+                width: 190px;
+                height: 44px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .title {
+                font-size: 1.1rem;
+            }
+
+            .wifi-tower {
+                width: 70px;
+                height: 78px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glow1"></div>
+    <div class="glow2"></div>
+
+    <!-- FLOATING PARTICLES -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- LOGO -->
+        <div class="logo">Summar<span>AI</span></div>
+
+        <!-- 3D ANIMATED SCENE -->
+        <div class="scene">
+            <div class="scene-inner" id="sceneInner">
+                <!-- SIGNAL WAVES -->
+                <div class="signal-wave" id="wave1"></div>
+                <div class="signal-wave" id="wave2"></div>
+                <div class="signal-wave" id="wave3"></div>
+
+                <!-- WIFI TOWER SVG -->
+                <svg class="wifi-tower" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Tower base -->
+                    <rect x="52" y="80" width="16" height="40" rx="3" fill="#1c2130" stroke="#252c3d"
+                        stroke-width="1.5" />
+                    <!-- Tower legs -->
+                    <line x1="60" y1="120" x2="42" y2="128" stroke="#252c3d" stroke-width="2" stroke-linecap="round" />
+                    <line x1="60" y1="120" x2="78" y2="128" stroke="#252c3d" stroke-width="2" stroke-linecap="round" />
+                    <!-- Tower body -->
+                    <polygon points="60,10 44,80 76,80" fill="#13171f" stroke="#252c3d" stroke-width="1.5" />
+                    <line x1="60" y1="30" x2="48" y2="68" stroke="#252c3d" stroke-width="1" />
+                    <line x1="60" y1="30" x2="72" y2="68" stroke="#252c3d" stroke-width="1" />
+                    <line x1="50" y1="55" x2="70" y2="55" stroke="#252c3d" stroke-width="1" />
+                    <line x1="47" y1="68" x2="73" y2="68" stroke="#252c3d" stroke-width="1" />
+                    <!-- Antenna tip -->
+                    <circle cx="60" cy="10" r="4" fill="#4fffb0" opacity="0.9">
+                        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite" />
+                    </circle>
+                    <!-- Wifi arcs -->
+                    <path d="M40 42 Q60 28 80 42" stroke="#4fffb0" stroke-width="2.5" fill="none" stroke-linecap="round"
+                        opacity="0.8" id="arc1">
+                        <animate attributeName="opacity" values="0.2;0.9;0.2" dur="2s" begin="0s"
+                            repeatCount="indefinite" />
+                    </path>
+                    <path d="M30 54 Q60 35 90 54" stroke="#00c9ff" stroke-width="2" fill="none" stroke-linecap="round"
+                        opacity="0.6" id="arc2">
+                        <animate attributeName="opacity" values="0.1;0.7;0.1" dur="2s" begin="0.4s"
+                            repeatCount="indefinite" />
+                    </path>
+                    <path d="M20 66 Q60 42 100 66" stroke="#4fffb0" stroke-width="1.5" fill="none"
+                        stroke-linecap="round" opacity="0.4" id="arc3">
+                        <animate attributeName="opacity" values="0.05;0.5;0.05" dur="2s" begin="0.8s"
+                            repeatCount="indefinite" />
+                    </path>
+                    <!-- No signal X (hidden by default) -->
+                    <g id="noSignalX" opacity="0">
+                        <line x1="36" y1="38" x2="84" y2="72" stroke="#ff6b6b" stroke-width="3"
+                            stroke-linecap="round" />
+                        <line x1="84" y1="38" x2="36" y2="72" stroke="#ff6b6b" stroke-width="3"
+                            stroke-linecap="round" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- TEXT -->
+        <div class="title">You're Offline</div>
+        <p class="desc">SummarAI needs an internet connection to generate AI summaries. Check your connection and hit
+            retry!</p>
+
+        <!-- STATUS -->
+        <div class="status-badge">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">No Internet Connection</span>
+        </div>
+
+        <!-- RETRY BUTTON -->
+        <div>
+            <div class="retry-wrap">
+                <button class="retry-btn" id="retryBtn" onclick="handleRetry()">
+                    <div class="btn-progress" id="btnProgress"></div>
+
+                    <!-- CARTOON CHARACTER -->
+                    <div class="character" id="character">
+                        <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Body -->
+                            <ellipse cx="17" cy="20" rx="7" ry="8" fill="#4fffb0" />
+                            <!-- Head -->
+                            <circle cx="17" cy="10" r="7" fill="#4fffb0" />
+                            <!-- Eyes -->
+                            <circle cx="14.5" cy="9" r="1.5" fill="#0b0e14" />
+                            <circle cx="19.5" cy="9" r="1.5" fill="#0b0e14" />
+                            <!-- Eye shine -->
+                            <circle cx="15" cy="8.4" r="0.5" fill="white" />
+                            <circle cx="20" cy="8.4" r="0.5" fill="white" />
+                            <!-- Smile -->
+                            <path d="M14 12 Q17 14.5 20 12" stroke="#0b0e14" stroke-width="1.2" fill="none"
+                                stroke-linecap="round" id="charMouth" />
+                            <!-- Arms -->
+                            <g class="arm-l" id="armL">
+                                <line x1="10" y1="18" x2="5" y2="23" stroke="#4fffb0" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                            </g>
+                            <g class="arm-r" id="armR">
+                                <line x1="24" y1="18" x2="29" y2="23" stroke="#4fffb0" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                            </g>
+                            <!-- Legs -->
+                            <g class="leg-l" id="legL">
+                                <line x1="14" y1="27" x2="11" y2="33" stroke="#4fffb0" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                            </g>
+                            <g class="leg-r" id="legR">
+                                <line x1="20" y1="27" x2="23" y2="33" stroke="#4fffb0" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <span class="btn-label" id="btnLabel">↺ Retry Connection</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- TIP -->
+        <div class="tip">
+            <strong>Tip:</strong> SummarAI requires internet to process AI summaries. Once reconnected, click Retry and
+            your page will load instantly!
+        </div>
+    </div>
+
+    <script>
+        // PARTICLES
+        const particlesEl = document.getElementById('particles');
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (6 + Math.random() * 10) + 's';
+            p.style.animationDelay = (Math.random() * 8) + 's';
+            p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+            p.style.opacity = '0';
+            if (Math.random() > 0.5) p.style.background = 'var(--accent2)';
+            particlesEl.appendChild(p);
+        }
+
+        // STATE
+        let isChecking = false;
+        const character = document.getElementById('character');
+        const btnProgress = document.getElementById('btnProgress');
+        const btnLabel = document.getElementById('btnLabel');
+        const retryBtn = document.getElementById('retryBtn');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const charMouth = document.getElementById('charMouth');
+        const sceneInner = document.getElementById('sceneInner');
+        const noSignalX = document.getElementById('noSignalX');
+
+        // CHARACTER ANIMATION
+        function startRunning() {
+            character.querySelectorAll('.leg-l,.leg-r,.arm-l,.arm-r').forEach(el => el.classList.add('running'));
+        }
+        function stopRunning() {
+            character.querySelectorAll('.leg-l,.leg-r,.arm-l,.arm-r').forEach(el => el.classList.remove('running'));
+        }
+
+        function setCharacterMood(mood) {
+            if (mood === 'happy') {
+                charMouth.setAttribute('d', 'M14 12 Q17 14.5 20 12');
+                character.querySelector('ellipse').setAttribute('fill', '#4fffb0');
+                character.querySelector('circle').setAttribute('fill', '#4fffb0');
+                character.querySelectorAll('line').forEach(l => l.setAttribute('stroke', '#4fffb0'));
+            } else if (mood === 'sad') {
+                charMouth.setAttribute('d', 'M14 13.5 Q17 11 20 13.5');
+                character.querySelector('ellipse').setAttribute('fill', '#ff6b6b');
+                character.querySelector('circle').setAttribute('fill', '#ff6b6b');
+                character.querySelectorAll('line').forEach(l => l.setAttribute('stroke', '#ff6b6b'));
+            }
+        }
+
+        // ANIMATE CHARACTER ACROSS BUTTON
+        function animateCharacter(targetPercent, duration, onComplete) {
+            const btnWidth = retryBtn.offsetWidth;
+            const startX = -36;
+            const endX = (btnWidth * targetPercent / 100) - 17;
+            const startTime = performance.now();
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // ease in out
+                const eased = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+                const currentX = startX + (endX - startX) * eased;
+                character.style.left = currentX + 'px';
+                btnProgress.style.width = (targetPercent * eased) + '%';
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    if (onComplete) onComplete();
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        // ANIMATE CHARACTER BACK
+        function animateCharacterBack(fromPercent, onComplete) {
+            const btnWidth = retryBtn.offsetWidth;
+            const startX = (btnWidth * fromPercent / 100) - 17;
+            const endX = -36;
+            const startTime = performance.now();
+            const duration = 600;
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+                const currentX = startX + (endX - startX) * eased;
+                character.style.left = currentX + 'px';
+                btnProgress.style.width = (fromPercent * (1 - eased)) + '%';
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    if (onComplete) onComplete();
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        async function handleRetry() {
+            if (isChecking) return;
+            isChecking = true;
+            retryBtn.disabled = true;
+
+            // RESET state
+            btnProgress.className = 'btn-progress';
+            btnProgress.style.width = '0%';
+            character.style.left = '-36px';
+            setCharacterMood('happy');
+
+            // Update UI
+            btnLabel.textContent = 'Checking...';
+            btnLabel.className = 'btn-label checking';
+            statusText.textContent = 'Checking Connection...';
+            statusDot.style.background = 'var(--accent2)';
+            statusDot.style.animation = 'none';
+
+            // Start running
+            startRunning();
+
+            // Animate to 80% while checking
+            animateCharacter(80, 1800, async () => {
+                // Check internet
+                let online = false;
+                try {
+                    const res = await fetch('https://www.google.com/favicon.ico', {
+                        method: 'HEAD', mode: 'no-cors', cache: 'no-store'
+                    });
+                    online = true;
+                } catch (e) {
+                    online = false;
+                }
+
+                if (online) {
+                    // SUCCESS — run to end
+                    setCharacterMood('happy');
+                    btnProgress.className = 'btn-progress success';
+                    btnLabel.textContent = '✓ Connected!';
+                    btnLabel.className = 'btn-label success-text';
+                    statusText.textContent = 'Connected!';
+                    statusDot.style.background = 'var(--accent)';
+
+                    // Run to 100%
+                    animateCharacter(100, 500, () => {
+                        stopRunning();
+                        // Jump animation
+                        character.style.transition = 'top 0.2s ease';
+                        character.style.top = '30%';
+                        setTimeout(() => {
+                            character.style.top = '50%';
+                            setTimeout(() => {
+                                // Redirect
+                                window.location.href = '/';
+                            }, 400);
+                        }, 200);
+                    });
+
+                } else {
+                    // FAIL — character goes sad and runs back
+                    setCharacterMood('sad');
+                    stopRunning();
+                    btnProgress.className = 'btn-progress fail';
+                    btnLabel.textContent = '✗ Still Offline';
+                    btnLabel.className = 'btn-label fail-text';
+                    statusText.textContent = 'No Internet Connection';
+                    statusDot.style.background = 'var(--danger)';
+                    statusDot.style.animation = 'blink 1.2s step-end infinite';
+
+                    // Show X on tower
+                    noSignalX.setAttribute('opacity', '1');
+                    setTimeout(() => noSignalX.setAttribute('opacity', '0'), 1500);
+
+                    // Wait then run back
+                    setTimeout(() => {
+                        startRunning();
+                        animateCharacterBack(80, () => {
+                            stopRunning();
+                            setCharacterMood('happy');
+                            btnLabel.textContent = '↺ Retry Connection';
+                            btnLabel.className = 'btn-label';
+                            isChecking = false;
+                            retryBtn.disabled = false;
+                            statusText.textContent = 'No Internet Connection';
+                        });
+                    }, 800);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
